@@ -1,0 +1,21 @@
+{
+  "name": "softca_face_recon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgeGrandett/softca_face_recon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JorgeGrandett/softca_face_recon/issues"
+  },
+  "homepage": "https://github.com/JorgeGrandett/softca_face_recon#readme",
+  "workspaces": ["demo"]
+}
