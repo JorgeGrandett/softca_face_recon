@@ -1,0 +1,9 @@
+<section comp="ui-import" #inputId>
+  <label>{{label}}</label>
+  <input
+    type="text"
+    [(ngModel)]="value"
+    (keyup)="onValueChange()"
+    (focus)="onInputFocus()"
+    (blur)="onInputBlur()" />
+</section>
