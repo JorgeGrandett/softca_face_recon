@@ -5,6 +5,7 @@ section[comp="ui-import"] {
   background-color: rgba(0, 0, 20, .5);
   border: 2px solid #ffffff;
   border-radius: 16px;
+  overflow: hidden;
 }
 
   section[comp="ui-import"] > label {

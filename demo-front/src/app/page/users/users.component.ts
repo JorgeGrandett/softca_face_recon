@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { PickerComponent } from '../../ui/picker/picker.component';
 
 type userCard = {
   title: string;
@@ -11,7 +12,7 @@ type userCard = {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [InputComponent, ButtonComponent],
+  imports: [InputComponent, ButtonComponent, PickerComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
