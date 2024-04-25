@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  /* Colors */
+  --color-primary: #ffffff;
+  --color-secondary: #4D9949;
+
+  --color-background: linear-gradient(180deg, #0c1426 0%, #232324 100%);
+  --color-background-vento: rgba(100, 100, 100, .1);
+
+  /* Size */
+  --margin: 16px;
+  --padding: 16px;
+
+  /* Font */
+  --font-family: 'Roboto', sans-serif;
+  --font-size: 1.1rem;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--color-primary);
+  user-select: none;
+}
+
+html {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  color: var(--color-secondary);
+}
+
+p {
+  font-family: var(--font-family);
+}
+
+.vento-background {
+  background: var(--color-background-vento);
+  backdrop-filter: blur(var(--margin)) saturate(180%);
+  padding: var(--margin);
+  border-radius: var(--margin);
+}

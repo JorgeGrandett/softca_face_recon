@@ -1,0 +1,22 @@
+section[comp="ui-button"] {
+  height: 50px;
+  width: 100%;
+}
+
+  section[comp="ui-button"] button {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid  var(--color-primary);
+    border-radius: 16px;
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 20, .5);
+    cursor: pointer;
+  }
+
+  section[comp="ui-button"].disable button {
+    opacity: .5;
+    pointer-events: none;
+  }

@@ -1,0 +1,32 @@
+article.card-user {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--margin);
+  background-color: rgba(200, 200, 200, .2);
+  padding: var(--margin);
+  border-radius: var(--margin);
+}
+
+  article.card-user header {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+    article.card-user header h2 {
+      text-align: right;
+    }
+
+  article.card-user main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: calc(var(--margin) / 2);
+  }
+
+  article.card-user footer {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--margin);
+  }

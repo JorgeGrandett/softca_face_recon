@@ -1,0 +1,30 @@
+<section comp="app-layout">
+  <header class="vento-background">
+    <h1>Face Recon</h1>
+  </header>
+  <nav class="vento-background">
+    <ul>
+      <li>
+        <a routerLink="home">Home</a>
+      </li>
+      <li class="bar">
+        <span>|</span>
+      </li>
+      <li>
+        <a routerLink="users">Users</a>
+      </li>
+      <li class="bar">
+        <span>|</span>
+      </li>
+      <li>
+        <a routerLink="validate">Validate</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="vento-background">
+    <ng-content></ng-content>
+  </main>
+  <footer class="vento-background">
+    <p>footer</p>
+  </footer>
+</section>
