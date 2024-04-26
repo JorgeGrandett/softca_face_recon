@@ -3,12 +3,15 @@ package com.example.demoback.opencv.dao;
 import com.example.demoback.opencv.dto.CreatePerson.CreatePersonReq;
 import com.example.demoback.opencv.dto.GetPersons.GetPersonsRes;
 import com.example.demoback.opencv.dto.Person;
+import com.example.demoback.util.LocalDateTypeAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 @Repository
@@ -22,7 +25,7 @@ public class OpenCvDao {
 
     RestTemplate restTemplate;
     HttpHeaders headers;
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter()).create();
 
     private void init () {
         restTemplate = new RestTemplate();
@@ -45,6 +48,7 @@ public class OpenCvDao {
 
     public boolean createPerson (CreatePersonReq createPersonReq) {
         init();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<String> entity = new HttpEntity<>(gson.toJson(createPersonReq), headers);
         ResponseEntity<?> result = restTemplate.exchange(apiUrl+"person", HttpMethod.POST, entity, Person.class);

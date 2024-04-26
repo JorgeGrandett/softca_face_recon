@@ -48,13 +48,13 @@ public class UserService {
         CreatePersonReq createPersonReq = new CreatePersonReq(
                 new ArrayList<>(),
                 LocalDate.now(),
-                "I",
+                "M",
                 uuid,
                 List.of(Base64.encodeBase64String(face.getBytes())),
                 false,
                 usuario.getName(),
                 "Colombian",
-                null
+                ""
         );
         if(!openCvDao.createPerson(createPersonReq)) {
             throw new IllegalTransactionStateException("Error al crear el usuario en OpenCV");
