@@ -2,7 +2,6 @@ package com.example.demoback.facerecon.controller;
 
 import com.example.demoback.facerecon.dto.Usuario;
 import com.example.demoback.facerecon.service.UserService;
-import com.example.demoback.fileStorage.service.FileSystemStorageService;
 import com.example.demoback.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +17,15 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final FileSystemStorageService fileSystemStorageService;
 
     @Autowired
-    public UserController(UserService userService, FileSystemStorageService fileSystemStorageService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.fileSystemStorageService = fileSystemStorageService;
     }
 
     @GetMapping("/users")
     public ResponseEntity<ResponseMessage<List<Usuario>>> getAllUsers () {
-        try {
+        /*try {
             List<Usuario> aux = userService.getAll();
             if(!aux.isEmpty()) {
                 return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
@@ -37,7 +34,12 @@ public class UserController {
         }
         catch (Exception e) {
             return ResponseEntity.ok(new ResponseMessage<>(404, "Error al consultar los usuarios", null));
+        }*/
+        List<Usuario> aux = userService.getAll();
+        if(!aux.isEmpty()) {
+            return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
         }
+        return ResponseEntity.ok(new ResponseMessage<>(404, "No hay usuarios en la base de datos", null));
     }
 
     @GetMapping("/user/{nmid}")
@@ -57,12 +59,10 @@ public class UserController {
     @PostMapping("/user")
     public ResponseEntity<ResponseMessage<Usuario>> createUser (@RequestParam("name") String name, @RequestParam("nmid") long nmid, @RequestParam("file") MultipartFile face) {
         try {
-            String path = fileSystemStorageService.store(face, nmid);
 
             Usuario aux = new Usuario();
             aux.setName(name);
             aux.setNmid(nmid);
-            aux.setImageRoute(path);
             aux.setCreatedAt(new Date());
 
            userService.create(aux);
@@ -70,14 +70,13 @@ public class UserController {
             return ResponseEntity.ok(new ResponseMessage<>(409, "El usuario que intenta crear ya existe", null));
         }
         catch (Exception e) {
-            System.out.println(e);
             return ResponseEntity.ok(new ResponseMessage<>(500, "Error al crear el usuario", null));
         }
         return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario creado con exito", null));
     }
 
     @PutMapping("/user")
-    public ResponseEntity<ResponseMessage<Usuario>> updateUser (@RequestBody Usuario usuario) {
+    public ResponseEntity<ResponseMessage<Usuario>> updateUser (@RequestBody Usuario usuario, @RequestParam("file") MultipartFile face) {
         if(usuario.getNmid() == 0) {
             return ResponseEntity.ok(new ResponseMessage<>(400, "Datos del usuario incompletos", null));
         }
@@ -92,7 +91,7 @@ public class UserController {
         return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario actualizado con exito", null));
     }
 
-    @DeleteMapping("/user")
+    @DeleteMapping("/user/{nmid}")
     public ResponseEntity<ResponseMessage<Usuario>> deleteUser (@PathVariable long nmid) {
         if(nmid == 0) {
             return ResponseEntity.ok(new ResponseMessage<>(400, "Nmid faltante", null));

@@ -14,7 +14,6 @@ public class Usuario {
     private String name;
     @Column(unique = true)
     private long nmid;
-    private String imageRoute;
     private Date createdAt;
 
     public long getId() {
@@ -39,14 +38,6 @@ public class Usuario {
 
     public void setNmid(long nmid) {
         this.nmid = nmid;
-    }
-
-    public String getImageRoute() {
-        return imageRoute;
-    }
-
-    public void setImageRoute(String imageRoute) {
-        this.imageRoute = imageRoute;
     }
 
     public Date getCreatedAt() {

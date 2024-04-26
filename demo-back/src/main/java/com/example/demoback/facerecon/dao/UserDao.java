@@ -15,8 +15,8 @@ public interface UserDao extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByNmid(long nmid);
 
     @Modifying
-    @Query("UPDATE Usuario us SET us.name = ?1, us.imageRoute = ?3 WHERE us.nmid = ?2")
-    void update(String name, long nmid, String imageRoute);
+    @Query("UPDATE Usuario us SET us.name = ?1 WHERE us.nmid = ?2")
+    void update(String name, long nmid);
 
     @Modifying
     @Query("DELETE FROM Usuario us WHERE us.nmid = ?1")
