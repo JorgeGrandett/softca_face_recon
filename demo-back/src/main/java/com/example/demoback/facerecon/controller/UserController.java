@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -65,9 +66,12 @@ public class UserController {
             aux.setNmid(nmid);
             aux.setCreatedAt(new Date());
 
-           userService.create(aux);
+           userService.create(aux, face);
         } catch (IllegalAccessException e) {
             return ResponseEntity.ok(new ResponseMessage<>(409, "El usuario que intenta crear ya existe", null));
+        }
+        catch (IOException e) {
+            return ResponseEntity.ok(new ResponseMessage<>(500, "Error al convertir la foto a Base64", null));
         }
         catch (Exception e) {
             return ResponseEntity.ok(new ResponseMessage<>(500, "Error al crear el usuario", null));

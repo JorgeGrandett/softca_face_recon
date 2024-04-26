@@ -1,5 +1,8 @@
 package com.example.demoback.opencv.dao;
 
+import com.example.demoback.opencv.dto.CreatePerson.CreatePersonReq;
+import com.example.demoback.opencv.dto.GetPersons.GetPersonsRes;
+import com.example.demoback.opencv.dto.Person;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -19,32 +22,38 @@ public class OpenCvDao {
 
     RestTemplate restTemplate;
     HttpHeaders headers;
-
     Gson gson = new Gson();
 
-    public Object getPersons () {
+    private void init () {
         restTemplate = new RestTemplate();
 
         headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.add("X-API-Key", apiKey);
-
-        System.out.println(headers.get("X-API-Key"));
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<?> result = restTemplate.exchange(apiUrl+"persons", HttpMethod.GET, entity, Object.class);
-        System.out.println(gson.fromJson(result.getBody().toString(), Object.class));
-
-        return result.getBody();
     }
 
-    public Object createPerson () {
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<?> result = restTemplate.exchange(apiUrl+"person", HttpMethod.POST, entity, Object.class);
-        System.out.println(result.getBody());
-        return result.getBody();
+    public GetPersonsRes getPersons () throws IllegalAccessException {
+        init();
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<?> result = restTemplate.exchange(apiUrl+"persons", HttpMethod.GET, entity, GetPersonsRes.class);
+        if(result.getStatusCode() != HttpStatus.OK) {
+            throw new IllegalAccessException("Error al consultar los usuarios en OpenCV");
+        }
+        return (GetPersonsRes) result.getBody();
+    }
+
+    public boolean createPerson (CreatePersonReq createPersonReq) {
+        init();
+
+        HttpEntity<String> entity = new HttpEntity<>(gson.toJson(createPersonReq), headers);
+        ResponseEntity<?> result = restTemplate.exchange(apiUrl+"person", HttpMethod.POST, entity, Person.class);
+        return result.getStatusCode() == HttpStatus.CREATED;
     }
 
     public Object searchLiveFace () {
+        init();
+
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         ResponseEntity<?> result = restTemplate.exchange(apiUrl+"person", HttpMethod.POST, entity, Object.class);
         System.out.println(result.getBody());

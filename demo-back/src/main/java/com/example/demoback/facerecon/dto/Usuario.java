@@ -14,6 +14,7 @@ public class Usuario {
     private String name;
     @Column(unique = true)
     private long nmid;
+    private String openCvUuid;
     private Date createdAt;
 
     public long getId() {
@@ -38,6 +39,14 @@ public class Usuario {
 
     public void setNmid(long nmid) {
         this.nmid = nmid;
+    }
+
+    public String getOpenCvUuid() {
+        return openCvUuid;
+    }
+
+    public void setOpenCvUuid(String openCvUuid) {
+        this.openCvUuid = openCvUuid;
     }
 
     public Date getCreatedAt() {
