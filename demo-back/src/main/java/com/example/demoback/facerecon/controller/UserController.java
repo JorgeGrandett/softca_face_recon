@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/facerecon")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
@@ -105,10 +105,4 @@ public class UserController {
         }
         return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario eliminado con exito", null));
     }
-
-    @PostMapping("/authenticate/user")
-    public ResponseEntity<ResponseMessage<Usuario>> authenticateUser (@RequestParam("file") MultipartFile face) {
-        return null;
-    }
-
 }
