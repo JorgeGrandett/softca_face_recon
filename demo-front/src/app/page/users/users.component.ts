@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { PickerComponent } from '../../ui/picker/picker.component';
 import { UserService } from '../../services/users/user.service';
+import { CardFormComponent } from '../../common/card-form/card-form.component';
+import { PickerComponent } from '../../ui/picker/picker.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -17,7 +17,7 @@ type UserCardData = {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [InputComponent, ButtonComponent, PickerComponent],
+  imports: [CardFormComponent, InputComponent, PickerComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })

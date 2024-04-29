@@ -12,11 +12,15 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  createUser(UserData: {
+  createUser(userData: {
     nmid: string,
     name: string,
     file: File
   }): Observable<any> {
-    return this.http.post(Urls.USER, UserData);
+    const formData = new FormData();
+    formData.append('nmid', userData.nmid);
+    formData.append('name', userData.name);
+    formData.append('file', userData.file);
+    return this.http.post(Urls.USER, formData);
   }
 }
