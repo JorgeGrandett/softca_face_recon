@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<ResponseMessage<List<Usuario>>> getAllUsers () {
-        /*try {
+        try {
             List<Usuario> aux = userService.getAll();
             if(!aux.isEmpty()) {
                 return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
@@ -35,12 +35,7 @@ public class UserController {
         }
         catch (Exception e) {
             return ResponseEntity.ok(new ResponseMessage<>(404, "Error al consultar los usuarios", null));
-        }*/
-        List<Usuario> aux = userService.getAll();
-        if(!aux.isEmpty()) {
-            return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
         }
-        return ResponseEntity.ok(new ResponseMessage<>(404, "No hay usuarios en la base de datos", null));
     }
 
     @GetMapping("/user/{nmid}")
@@ -80,7 +75,7 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<ResponseMessage<Usuario>> updateUser (@RequestBody Usuario usuario, @RequestParam("file") MultipartFile face) {
+    public ResponseEntity<ResponseMessage<Usuario>> updateUser (@RequestBody Usuario usuario) {
         if(usuario.getNmid() == 0) {
             return ResponseEntity.ok(new ResponseMessage<>(400, "Datos del usuario incompletos", null));
         }

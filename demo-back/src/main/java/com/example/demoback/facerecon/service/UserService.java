@@ -4,6 +4,8 @@ import com.example.demoback.facerecon.dao.UserDao;
 import com.example.demoback.facerecon.dto.Usuario;
 import com.example.demoback.opencv.dao.OpenCvDao;
 import com.example.demoback.opencv.dto.CreatePerson.CreatePersonReq;
+import com.example.demoback.opencv.dto.Person;
+import com.example.demoback.opencv.dto.UpdatePerson.UpdatePersonReq;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,14 +56,13 @@ public class UserService {
                 false,
                 usuario.getName(),
                 "Colombian",
-                ""
+                ""+usuario.getNmid()
         );
         if(!openCvDao.createPerson(createPersonReq)) {
             throw new IllegalTransactionStateException("Error al crear el usuario en OpenCV");
         }
 
         usuario.setOpenCvUuid(uuid);
-
         userDao.save(usuario);
     }
 
@@ -71,6 +72,20 @@ public class UserService {
         if(aux.isEmpty()) {
             throw new IllegalAccessException("El usuario no existe");
         }
+        Person personAux = openCvDao.getPerson(aux.get().getOpenCvUuid());
+        UpdatePersonReq updatePersonReq = new UpdatePersonReq(
+                null,
+                null,
+               null,
+                personAux.getId(),
+                null,
+                usuario.getName(),
+                null,
+                null
+        );
+        if(!openCvDao.updatePerson(updatePersonReq)) {
+            throw new IllegalTransactionStateException("Error al actualizar el usuario en OpenCV");
+        }
         userDao.update(usuario.getName(), usuario.getNmid(), usuario.getOpenCvUuid());
     }
 
@@ -79,6 +94,9 @@ public class UserService {
         Optional<Usuario> aux = userDao.findByNmid(nmid);
         if(aux.isEmpty()) {
             throw new IllegalAccessException("El usuario no existe");
+        }
+        if(!openCvDao.deletePerson(aux.get().getOpenCvUuid())) {
+            throw new IllegalTransactionStateException("Error al eliminar el usuario en OpenCV");
         }
         userDao.deleteByNmid(nmid);
     }
