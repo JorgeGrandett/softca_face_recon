@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     private final UserService userService;
@@ -24,7 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping()
     public ResponseEntity<ResponseMessage<List<Usuario>>> getAllUsers () {
         try {
             List<Usuario> aux = userService.getAll();
@@ -38,12 +39,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/{nmid}")
-    public ResponseEntity<ResponseMessage<Optional<Usuario>>> getUserByNmid (@PathVariable long nmid) {
+    @GetMapping("/{nmid}")
+    public ResponseEntity<ResponseMessage<Usuario>> getUserByNmid (@PathVariable long nmid) {
         try {
             Optional<Usuario> aux = userService.getByMnid(nmid);
             if(aux.isPresent()) {
-                return ResponseEntity.ok(new ResponseMessage<>(200, null, null));
+                return ResponseEntity.ok(new ResponseMessage<>(200, null, aux.get()));
             }
             return ResponseEntity.ok(new ResponseMessage<>(404, "No se encontro el usuario", null));
         }
@@ -52,7 +53,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user")
+    @PostMapping()
     public ResponseEntity<ResponseMessage<Usuario>> createUser (@RequestParam("name") String name, @RequestParam("nmid") long nmid, @RequestParam("file") MultipartFile face) {
         try {
 
@@ -74,7 +75,7 @@ public class UserController {
         return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario creado con exito", null));
     }
 
-    @PutMapping("/user")
+    @PutMapping()
     public ResponseEntity<ResponseMessage<Usuario>> updateUser (@RequestBody Usuario usuario) {
         if(usuario.getNmid() == 0) {
             return ResponseEntity.ok(new ResponseMessage<>(400, "Datos del usuario incompletos", null));
@@ -90,7 +91,7 @@ public class UserController {
         return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario actualizado con exito", null));
     }
 
-    @DeleteMapping("/user/{nmid}")
+    @DeleteMapping("/{nmid}")
     public ResponseEntity<ResponseMessage<Usuario>> deleteUser (@PathVariable long nmid) {
         if(nmid == 0) {
             return ResponseEntity.ok(new ResponseMessage<>(400, "Nmid faltante", null));
