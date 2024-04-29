@@ -33,6 +33,7 @@ export class PickerComponent implements OnChanges {
     } else {
       this.fileName = '';
       this.inputElement.nativeElement.classList.remove('is-active');
+      this.fileChange.emit(null);
     }
   }
 
