@@ -1,14 +1,28 @@
 <article class="card-user">
   <header>
-    <h2>{{userCardData.title}}</h2>
+    <h2>{{userCardTags.title}}</h2>
   </header>
   <main>
-    <ui-input label="Name" />
-    <ui-input label="Identificaion" />
-    <ui-picker />
+    <ui-input
+      label="Name"
+      [(value)]="userCardData.user.name"
+      (valueChange)="validateUserCardData()" />
+    <ui-input
+      label="Identification"
+      [(value)]="userCardData.user.id"
+      (valueChange)="validateUserCardData()" />
+    <ui-picker
+      [(file)]="userCardData.user.photo"
+      (fileChange)="validateUserCardData()" />
   </main>
   <footer>
-    <ui-button [label]="userCardData.btnSave" />
-    <ui-button [label]="userCardData.btnCancel" />
+    <ui-button
+      [label]="userCardTags.btnSave"
+      [isActive]="userCardData.btnSaveAllowed"
+      (onClick)="saveUserCardData()" />
+    <ui-button
+      [label]="userCardTags.btnCancel"
+      [isActive]="userCardData.btnCancelAllowed" 
+      (onClick)="clearUserCardData()" />
   </footer>
 </article>
