@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { PickerComponent } from '../../ui/picker/picker.component';
+import { UserService } from '../../services/users/user.service';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -37,6 +38,10 @@ export class UsersComponent {
     }
   }
 
+  constructor(
+    private userService: UserService
+  ) {}
+
   validateUserCardData() {
     this.userCardData.btnSaveAllowed =
       (this.userCardData.user.id.length > 0 && this.userCardData.user.name.length > 0 && this.userCardData.user.photo !== null);
@@ -45,7 +50,7 @@ export class UsersComponent {
   }
 
   clearUserCardData() {
-    console.log('Clearing user card data');
+    //console.log('Clearing user card data');
     this.userCardData.user = {
       id: '',
       name: '',
@@ -55,6 +60,19 @@ export class UsersComponent {
   }
 
   saveUserCardData() {
-    console.log('Saving user card data:', this.userCardData.user);
+    //console.log('Saving user card data:', this.userCardData.user);
+    this.userService.createUser({
+      nmid: this.userCardData.user.id,
+      name: this.userCardData.user.name,
+      file: this.userCardData.user.photo!
+    }).subscribe({
+      next: (response) => {
+        console.log('User created:', response);
+        this.clearUserCardData();
+      },
+      error: (error) => {
+        console.error('Failed to create user:', error);
+      }
+    })
   }
 }
