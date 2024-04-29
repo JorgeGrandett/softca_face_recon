@@ -15,6 +15,7 @@ export class InputComponent implements OnChanges {
   @Input() value: string = '';
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
   hasFocus: boolean = false;
+  @Input() regex: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     const { value } = changes;

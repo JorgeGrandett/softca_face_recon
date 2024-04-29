@@ -5,12 +5,16 @@
   (onSave)="saveUserCardData()"
   (onCancel)="clearUserCardData()">
   <ui-input
-    label="Name"
+    label="Identification"
+    [(value)]="userCardData.user.id"
+    (valueChange)="validateUserCardData()" />
+  <ui-input
+    label="First name"
     [(value)]="userCardData.user.name"
     (valueChange)="validateUserCardData()" />
   <ui-input
-    label="Identification"
-    [(value)]="userCardData.user.id"
+    label="Last name"
+    [(value)]="userCardData.user.name"
     (valueChange)="validateUserCardData()" />
   <ui-picker
     [(file)]="userCardData.user.photo"
