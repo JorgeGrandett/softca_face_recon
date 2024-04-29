@@ -1,0 +1,18 @@
+<article comp="app-card-form">
+  <header>
+    <h2>{{title}}</h2>
+  </header>
+  <main>
+    <ng-content></ng-content>
+  </main>
+  <footer>
+    <ui-button
+      [label]="btnSave.label"
+      [isActive]="btnSave.allowed"
+      (onClick)="save()" />
+    <ui-button
+      [label]="btnCancel.label"
+      [isActive]="btnCancel.allowed" 
+      (onClick)="cancel()" />
+  </footer>
+</article>

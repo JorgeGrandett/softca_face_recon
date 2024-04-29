@@ -1,28 +1,18 @@
-<article class="card-user">
-  <header>
-    <h2>{{userCardTags.title}}</h2>
-  </header>
-  <main>
-    <ui-input
-      label="Name"
-      [(value)]="userCardData.user.name"
-      (valueChange)="validateUserCardData()" />
-    <ui-input
-      label="Identification"
-      [(value)]="userCardData.user.id"
-      (valueChange)="validateUserCardData()" />
-    <ui-picker
-      [(file)]="userCardData.user.photo"
-      (fileChange)="validateUserCardData()" />
-  </main>
-  <footer>
-    <ui-button
-      [label]="userCardTags.btnSave"
-      [isActive]="userCardData.btnSaveAllowed"
-      (onClick)="saveUserCardData()" />
-    <ui-button
-      [label]="userCardTags.btnCancel"
-      [isActive]="userCardData.btnCancelAllowed" 
-      (onClick)="clearUserCardData()" />
-  </footer>
-</article>
+<app-card-form
+  [title]="userCardTags.title"
+  [btnSave]="{ label: userCardTags.btnSave, allowed: userCardData.btnSaveAllowed }"
+  [btnCancel]="{ label: userCardTags.btnCancel, allowed: userCardData.btnCancelAllowed}"
+  (onSave)="saveUserCardData()"
+  (onCancel)="clearUserCardData()">
+  <ui-input
+    label="Name"
+    [(value)]="userCardData.user.name"
+    (valueChange)="validateUserCardData()" />
+  <ui-input
+    label="Identification"
+    [(value)]="userCardData.user.id"
+    (valueChange)="validateUserCardData()" />
+  <ui-picker
+    [(file)]="userCardData.user.photo"
+    (fileChange)="validateUserCardData()" />
+</app-card-form>

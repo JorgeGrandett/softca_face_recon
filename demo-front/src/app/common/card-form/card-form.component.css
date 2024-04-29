@@ -1,0 +1,32 @@
+article[comp='app-card-form'] {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--margin);
+  background-color: rgba(200, 200, 200, .2);
+  padding: var(--margin);
+  border-radius: var(--margin);
+}
+
+  article[comp='app-card-form'] > header {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+    article[comp='app-card-form'] > header > h2 {
+      text-align: right;
+    }
+
+  article[comp='app-card-form'] > main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: calc(var(--margin) / 2);
+  }
+
+  article[comp='app-card-form'] > footer {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--margin);
+  }
