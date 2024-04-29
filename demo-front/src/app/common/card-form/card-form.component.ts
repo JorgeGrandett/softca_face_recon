@@ -15,9 +15,10 @@ export class CardFormComponent {
     label: 'Save',
     allowed: false
   };
-  @Input() btnCancel: { label: string, allowed: boolean } = {
+  @Input() btnCancel: { label: string, allowed: boolean, hidden?: boolean } = {
     label: 'Cancel',
-    allowed: false
+    allowed: false,
+    hidden: false
   };
   @Output() onSave: EventEmitter<void> = new EventEmitter<void>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();

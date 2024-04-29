@@ -1,1 +1,7 @@
-<p>validate works!</p>
+<app-card-form
+  [title]="'Validate Card'"
+  [btnSave]="{ label: 'Validate', allowed: true }"
+  [btnCancel]="{ label: '', allowed: false, hidden: true }"
+  (onSave)="onSaveBtn()">
+  <ui-picker [(file)]="photo" />
+</app-card-form>

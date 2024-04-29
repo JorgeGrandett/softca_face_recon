@@ -5,14 +5,24 @@
   <main>
     <ng-content></ng-content>
   </main>
-  <footer>
-    <ui-button
-      [label]="btnSave.label"
-      [isActive]="btnSave.allowed"
-      (onClick)="save()" />
-    <ui-button
-      [label]="btnCancel.label"
-      [isActive]="btnCancel.allowed" 
-      (onClick)="cancel()" />
-  </footer>
+  @if (!btnCancel.hidden) {
+    <footer>
+      <ui-button
+        [label]="btnSave.label"
+        [isActive]="btnSave.allowed"
+        (onClick)="save()" />
+      <ui-button
+        [label]="btnCancel.label"
+        [isActive]="btnCancel.allowed" 
+        (onClick)="cancel()" />
+    </footer>
+  }
+  @else {
+    <footer class="single">
+      <ui-button
+        [label]="btnSave.label"
+        [isActive]="btnSave.allowed"
+        (onClick)="save()" />
+    </footer>
+  }
 </article>

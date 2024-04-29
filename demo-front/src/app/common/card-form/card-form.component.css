@@ -30,3 +30,7 @@ article[comp='app-card-form'] {
     grid-template-columns: 1fr 1fr;
     gap: var(--margin);
   }
+
+    article[comp='app-card-form'] > footer.single {
+      grid-template-columns: 1fr;
+    }
