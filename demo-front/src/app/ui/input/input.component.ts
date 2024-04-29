@@ -15,7 +15,6 @@ export class InputComponent implements OnChanges {
   @Input() value: string = '';
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
   hasFocus: boolean = false;
-  @Input() regex: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     const { value } = changes;
@@ -35,5 +34,10 @@ export class InputComponent implements OnChanges {
   onInputBlur() {
     this.hasFocus = false;
     if (this.value.length == 0) this.inputElement.nativeElement.classList.remove('is-active');
+  }
+
+  onKeyPress($event: KeyboardEvent) {
+    
+      $event.preventDefault();
   }
 }

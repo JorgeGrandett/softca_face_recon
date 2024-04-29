@@ -3,6 +3,7 @@
   <input
     type="text"
     [(ngModel)]="value"
+    (keypress)="onKeyPress($event)"
     (keyup)="onValueChange()"
     (focus)="onInputFocus()"
     (blur)="onInputBlur()"/>

@@ -9,7 +9,8 @@ type UserCardData = {
   btnCancelAllowed: boolean;
   user: {
     id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     photo: File | null;
   }
 }
@@ -33,7 +34,8 @@ export class UsersComponent {
     btnCancelAllowed: false,
     user: {
       id: '',
-      name: '',
+      firstName: '',
+      lastName: '',
       photo: null
     }
   }
@@ -44,16 +46,17 @@ export class UsersComponent {
 
   validateUserCardData() {
     this.userCardData.btnSaveAllowed =
-      (this.userCardData.user.id.length > 0 && this.userCardData.user.name.length > 0 && this.userCardData.user.photo !== null);
+      (this.userCardData.user.id.length > 0 && this.userCardData.user.firstName.length > 0 && this.userCardData.user.lastName.length > 0 && this.userCardData.user.photo !== null);
     this.userCardData.btnCancelAllowed =
-      (this.userCardData.user.id.length > 0 || this.userCardData.user.name.length > 0 || this.userCardData.user.photo !== null);
+      (this.userCardData.user.id.length > 0 || this.userCardData.user.firstName.length > 0 || this.userCardData.user.lastName.length > 0 || this.userCardData.user.photo !== null);
   }
 
   clearUserCardData() {
     //console.log('Clearing user card data');
     this.userCardData.user = {
       id: '',
-      name: '',
+      firstName: '',
+      lastName: '',
       photo: null
     }
     this.validateUserCardData();
@@ -63,7 +66,7 @@ export class UsersComponent {
     //console.log('Saving user card data:', this.userCardData.user);
     this.userService.createUser({
       nmid: this.userCardData.user.id,
-      name: this.userCardData.user.name,
+      name: this.userCardData.user.firstName + ' ' + this.userCardData.user.lastName,
       file: this.userCardData.user.photo!
     }).subscribe({
       next: (response) => {
