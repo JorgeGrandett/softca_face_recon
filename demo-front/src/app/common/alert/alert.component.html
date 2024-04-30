@@ -1,11 +1,11 @@
-@if (show) {
+@if (alertProps.show) {
   <section #alertId comp="app-alert">
     <article>
       <header>
-        <h2>{{title}}</h2>
+        <h2 class="{{alertTitleClass}}">{{alertTitle}}</h2>
       </header>
       <main>
-        <p>{{message}}</p>
+        <p>{{alertProps.message}}</p>
       </main>
       <footer (click)="onClose()">
         <span class="material-symbols-outlined">close</span>

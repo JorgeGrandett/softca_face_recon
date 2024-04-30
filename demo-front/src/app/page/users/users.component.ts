@@ -3,6 +3,8 @@ import { InputComponent } from '../../ui/input/input.component';
 import { UserService } from '../../services/users/user.service';
 import { CardFormComponent } from '../../common/card-form/card-form.component';
 import { PickerComponent } from '../../ui/picker/picker.component';
+import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
+import { AlertConst } from '../../utils/alerts.const';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -18,11 +20,17 @@ type UserCardData = {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CardFormComponent, InputComponent, PickerComponent],
+  imports: [AlertComponent, CardFormComponent, InputComponent, PickerComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
 export class UsersComponent {
+  alertData: AlertProps = {
+    show: false,
+    type: 'error',
+    message: ''
+  }
+
   userCardTags = {
     title: 'User Card',
     btnSave: 'Save',
@@ -79,10 +87,20 @@ export class UsersComponent {
     }).subscribe({
       next: (response) => {
         console.log('User created:', response);
+        this.alertData = {
+          show: true,
+          type: 'info',
+          message: AlertConst.MSG_CREATE_USER
+        }
         this.clearUserCardData();
       },
       error: (error) => {
         console.error('Failed to create user:', error);
+        this.alertData = {
+          show: true,
+          type: 'error',
+          message: AlertConst.MSG_ERR_CREATE_USER
+        }
       }
     })
   }

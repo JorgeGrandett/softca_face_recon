@@ -1,18 +1,47 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AlertConst } from '../../utils/alerts.const';
 
 @Component({
-  selector: 'app-alet',
+  selector: 'app-alert',
   standalone: true,
   imports: [],
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.css'
 })
-export class AlertComponent {
-  @Input() show: boolean = false;
-  @Input() title: string = 'Alert';
-  @Input() message: string = 'This is an alert message';
+export class AlertComponent implements OnChanges {
+  @Input() alertProps: AlertProps = {
+    show: false,
+    type: 'error',
+    message: ''
+  }
+  alertTitle: string = '';
+  alertTitleClass: string = '';
+
+  constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.reloadTitle();
+  }
+
+  reloadTitle(): void {
+    if (this.alertProps.type && this.alertProps.type === 'info') {
+      this.alertTitle = AlertConst.ALERT_TITLE;
+      this.alertTitleClass = '';
+      return;
+    }
+    this.alertTitle = AlertConst.ALERT_ERR_TITLE;
+    this.alertTitleClass = 'alert-error';
+  }
 
   onClose() {
-    this.show = false;
+    this.alertProps.show = false;
+    this.alertProps.message = '';
+    this.alertProps.type = 'error';
   }
+}
+
+export type AlertProps = {
+  show: boolean;
+  type?: 'error' | 'info';
+  message: string;
 }
