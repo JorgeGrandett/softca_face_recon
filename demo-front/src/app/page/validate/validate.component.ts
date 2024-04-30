@@ -44,6 +44,7 @@ export class ValidateComponent {
               show: true,
               type: 'error',
               message: AlertConst.MSG_ERR_VALIDATE_USER
+            }
           }
         })
     }
