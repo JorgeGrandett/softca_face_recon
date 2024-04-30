@@ -2,8 +2,10 @@ package com.example.demoback.facerecon.service;
 
 import com.example.demoback.facerecon.dao.UserDao;
 import com.example.demoback.facerecon.dto.Usuario;
+import com.example.demoback.facerecon.dto.UsuarioImagen;
 import com.example.demoback.opencv.dao.OpenCvDao;
 import com.example.demoback.opencv.dto.CreatePerson.CreatePersonReq;
+import com.example.demoback.opencv.dto.GetPersons.GetPersonsRes;
 import com.example.demoback.opencv.dto.Person;
 import com.example.demoback.opencv.dto.UpdatePerson.UpdatePersonReq;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -32,12 +34,31 @@ public class UserService {
         this.openCvDao = openCvDao;
     }
 
-    public List<Usuario> getAll () {
-        return userDao.findAll();
+    public List<UsuarioImagen> getAll () throws IllegalAccessException {
+        List<Usuario> users = userDao.findAll();
+        List<Person> opencvUsers = openCvDao.getPersons().getPersons();
+        List<UsuarioImagen> newUserList = new ArrayList<>();
+
+        for(Usuario usuario: users) {
+            Optional<Person> personOptional = opencvUsers.stream()
+                    .filter(person -> person.getId().equals(usuario.getOpenCvUuid()))
+                    .findFirst();
+
+            personOptional.ifPresent(person -> newUserList.add(new UsuarioImagen(usuario.getId(), usuario.getName(), usuario.getNmid(), usuario.getOpenCvUuid(), usuario.getCreatedAt(), person.getThumbnails().get(0).getThumbnail()) ));
+        }
+        return newUserList;
     }
 
-    public Optional<Usuario> getByMnid (long nmid) {
-        return userDao.findByNmid(nmid);
+    public UsuarioImagen getByMnid (long nmid) throws IllegalAccessException {
+        Optional<Usuario> auxUser = userDao.findByNmid(nmid);
+        UsuarioImagen usuarioImagen = null;
+
+        if(auxUser.isPresent()) {
+            Usuario usuario = auxUser.get();
+            Person person = openCvDao.getPerson(usuario.getOpenCvUuid());
+            usuarioImagen = new UsuarioImagen(usuario.getId(), usuario.getName(), usuario.getNmid(), usuario.getOpenCvUuid(), usuario.getCreatedAt(), person.getThumbnails().get(0).getThumbnail());
+        }
+        return usuarioImagen;
     }
 
     public void create (Usuario usuario, MultipartFile face) throws IllegalAccessException, IOException {
