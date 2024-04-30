@@ -42,3 +42,8 @@ export class AccordionComponent implements AfterViewInit {
     }
   }
 }
+
+export type AccordionProp = {
+  title: string;
+  isOpen: boolean;
+}

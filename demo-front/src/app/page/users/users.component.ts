@@ -5,7 +5,7 @@ import { CardFormComponent } from '../../common/card-form/card-form.component';
 import { PickerComponent } from '../../ui/picker/picker.component';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
-import { AccordionComponent } from '../../common/accordion/accordion.component';
+import { AccordionComponent, AccordionProp } from '../../common/accordion/accordion.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -26,6 +26,12 @@ type UserCardData = {
   styleUrl: './users.component.css'
 })
 export class UsersComponent {
+
+  accodeonData: AccordionProp[] = [
+    { title: 'Create new user', isOpen: true },
+    { title: 'User list', isOpen: false}
+  ]
+
   alertData: AlertProps = {
     show: false,
     type: 'error',
