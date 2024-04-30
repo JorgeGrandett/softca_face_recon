@@ -1,0 +1,22 @@
+@if (show) {
+  <section #healthId comp="app-health">
+    <article>
+      <header>
+        @if (isError) {
+          <h2 class="header-title-error">Cheking health failed</h2>
+        }
+        @else {
+          <h2>Cheking health of server connection</h2>
+        }
+      </header>
+      <main>
+        @if (isError) {
+          <button (click)="reload()">Reload</button>
+        }
+        @else {
+          <p>This may take a few moments</p>
+        }
+      </main>
+    </article>
+  </section>
+}
