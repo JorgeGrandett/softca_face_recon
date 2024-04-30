@@ -1,33 +1,38 @@
 <app-alert [alertProps]="alertData"></app-alert>
-<app-accordion>
-  <app-card-form
-    [title]="userCardTags.title"
-    [btnSave]="{ label: userCardTags.btnSave, allowed: userCardData.btnSaveAllowed }"
-    [btnCancel]="{ label: userCardTags.btnCancel, allowed: userCardData.btnCancelAllowed}"
-    (onSave)="saveUserCardData()"
-    (onCancel)="clearUserCardData()">
-    <ui-input
-      [label]="'Identification'"
-      [(value)]="userCardData.user.id"
-      [regex]="regex.id"
-      [maxLength]="10"
-      [minLength]="7"
-      [validations]="validations.id"
-      (valueChange)="validateUserCardData()" />
-    <ui-input
-      [label]="'First name'"
-      [(value)]="userCardData.user.firstName"
-      [regex]="regex.name"
-      [validations]="validations.name"
-      (valueChange)="validateUserCardData()" />
-    <ui-input
-      [label]="'Last name'"
-      [(value)]="userCardData.user.lastName"
-      [regex]="regex.name"
-      [validations]="validations.name"
-      (valueChange)="validateUserCardData()" />
-    <ui-picker
-      [(file)]="userCardData.user.photo"
-      (fileChange)="validateUserCardData()" />
-  </app-card-form>
-</app-accordion>
+<section class="accordions">
+  <app-accordion [title]="accodeonData[0].title" [(isOpen)]="accodeonData[0].isOpen">
+    <app-card-form
+      [title]="userCardTags.title"
+      [btnSave]="{ label: userCardTags.btnSave, allowed: userCardData.btnSaveAllowed }"
+      [btnCancel]="{ label: userCardTags.btnCancel, allowed: userCardData.btnCancelAllowed}"
+      (onSave)="saveUserCardData()"
+      (onCancel)="clearUserCardData()">
+      <ui-input
+        [label]="'Identification'"
+        [(value)]="userCardData.user.id"
+        [regex]="regex.id"
+        [maxLength]="10"
+        [minLength]="7"
+        [validations]="validations.id"
+        (valueChange)="validateUserCardData()" />
+      <ui-input
+        [label]="'First name'"
+        [(value)]="userCardData.user.firstName"
+        [regex]="regex.name"
+        [validations]="validations.name"
+        (valueChange)="validateUserCardData()" />
+      <ui-input
+        [label]="'Last name'"
+        [(value)]="userCardData.user.lastName"
+        [regex]="regex.name"
+        [validations]="validations.name"
+        (valueChange)="validateUserCardData()" />
+      <ui-picker
+        [(file)]="userCardData.user.photo"
+        (fileChange)="validateUserCardData()" />
+    </app-card-form>
+  </app-accordion>
+  <app-accordion [title]="accodeonData[1].title" [(isOpen)]="accodeonData[1].isOpen">
+  
+  </app-accordion>
+</section>
