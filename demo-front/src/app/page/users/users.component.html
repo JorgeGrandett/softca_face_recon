@@ -5,16 +5,24 @@
   (onSave)="saveUserCardData()"
   (onCancel)="clearUserCardData()">
   <ui-input
-    label="Identification"
+    [label]="'Identification'"
     [(value)]="userCardData.user.id"
+    [regex]="regex.id"
+    [maxLength]="10"
+    [minLength]="7"
+    [validations]="validations.id"
     (valueChange)="validateUserCardData()" />
   <ui-input
-    label="First name"
+    [label]="'First name'"
     [(value)]="userCardData.user.firstName"
+    [regex]="regex.name"
+    [validations]="validations.name"
     (valueChange)="validateUserCardData()" />
   <ui-input
-    label="Last name"
+    [label]="'Last name'"
     [(value)]="userCardData.user.lastName"
+    [regex]="regex.name"
+    [validations]="validations.name"
     (valueChange)="validateUserCardData()" />
   <ui-picker
     [(file)]="userCardData.user.photo"

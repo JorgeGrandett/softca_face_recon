@@ -3,8 +3,12 @@
   <input
     type="text"
     [(ngModel)]="value"
+    maxlength="{{maxLength}}"
     (keypress)="onKeyPress($event)"
     (keyup)="onValueChange()"
     (focus)="onInputFocus()"
     (blur)="onInputBlur()"/>
 </section>
+@if (!valid) {
+  <p class="import-err">{{errMessage}}</p>
+}

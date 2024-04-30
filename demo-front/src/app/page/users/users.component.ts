@@ -32,12 +32,22 @@ export class UsersComponent {
   userCardData: UserCardData = {
     btnSaveAllowed: false,
     btnCancelAllowed: false,
-    user: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      photo: null
-    }
+    user: { id: '', firstName: '', lastName: '', photo: null }
+  }
+
+  regex = {
+    id: /^\d$/,
+    name: /^[a-zA-Z\s]$/
+  }
+
+  validations = {
+    id: [
+      { regex: /[0-9]{7,10}/, message: 'ID must be a 7-10 digit number'},
+      { regex: /[1-9]\d{6,}/, message: 'ID has be a number greater than 999,999' }
+    ],
+    name: [
+      { regex: /^[A-Za-z]+( [A-Za-z]+)?$/, message: 'Name must be in the format "First Last" or "Name"' }
+    ]
   }
 
   constructor(
@@ -52,7 +62,6 @@ export class UsersComponent {
   }
 
   clearUserCardData() {
-    //console.log('Clearing user card data');
     this.userCardData.user = {
       id: '',
       firstName: '',
@@ -63,7 +72,6 @@ export class UsersComponent {
   }
 
   saveUserCardData() {
-    //console.log('Saving user card data:', this.userCardData.user);
     this.userService.createUser({
       nmid: this.userCardData.user.id,
       name: this.userCardData.user.firstName + ' ' + this.userCardData.user.lastName,

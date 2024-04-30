@@ -8,6 +8,10 @@ section[comp="ui-import"] {
   overflow: hidden;
 }
 
+section[comp="ui-import"].has-error {
+  border: 2px solid #ff0000;
+}
+
   section[comp="ui-import"] > label {
     position: absolute;
     top: 50%;
@@ -37,4 +41,10 @@ section[comp="ui-import"].is-active > label {
   position: absolute;
   top: 14px;
   font-size: calc(var(--font-size) * 0.8);
+}
+
+.import-err {
+  padding-left: var(--margin);
+  padding-right: var(--margin);
+  font-family: monospace;
 }
