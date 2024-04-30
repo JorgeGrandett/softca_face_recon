@@ -1,6 +1,7 @@
 package com.example.demoback.facerecon.controller;
 
 import com.example.demoback.facerecon.dto.Usuario;
+import com.example.demoback.facerecon.dto.UsuarioImagen;
 import com.example.demoback.facerecon.service.UserService;
 import com.example.demoback.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseMessage<List<Usuario>>> getAllUsers () {
+    public ResponseEntity<ResponseMessage<List<UsuarioImagen>>> getAllUsers () {
         try {
-            List<Usuario> aux = userService.getAll();
+            List<UsuarioImagen> aux = userService.getAll();
             if(!aux.isEmpty()) {
                 return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
             }
@@ -40,11 +41,11 @@ public class UserController {
     }
 
     @GetMapping("/{nmid}")
-    public ResponseEntity<ResponseMessage<Usuario>> getUserByNmid (@PathVariable long nmid) {
+    public ResponseEntity<ResponseMessage<UsuarioImagen>> getUserByNmid (@PathVariable long nmid) {
         try {
-            Optional<Usuario> aux = userService.getByMnid(nmid);
-            if(aux.isPresent()) {
-                return ResponseEntity.ok(new ResponseMessage<>(200, null, aux.get()));
+            UsuarioImagen aux = userService.getByMnid(nmid);
+            if(aux != null) {
+                return ResponseEntity.ok(new ResponseMessage<>(200, null, aux));
             }
             return ResponseEntity.ok(new ResponseMessage<>(404, "No se encontro el usuario", null));
         }
@@ -62,7 +63,7 @@ public class UserController {
             aux.setNmid(nmid);
             aux.setCreatedAt(new Date());
 
-           userService.create(aux, face);
+            userService.create(aux, face);
         } catch (IllegalAccessException e) {
             return ResponseEntity.ok(new ResponseMessage<>(409, "El usuario que intenta crear ya existe", null));
         }

@@ -17,6 +17,17 @@ public class Usuario {
     private String openCvUuid;
     private Date createdAt;
 
+    public Usuario() {
+    }
+
+    public Usuario(long id, String name, long nmid, String openCvUuid, Date createdAt) {
+        this.id = id;
+        this.name = name;
+        this.nmid = nmid;
+        this.openCvUuid = openCvUuid;
+        this.createdAt = createdAt;
+    }
+
     public long getId() {
         return id;
     }
