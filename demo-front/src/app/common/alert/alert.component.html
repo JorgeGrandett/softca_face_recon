@@ -1,0 +1,15 @@
+@if (show) {
+  <section #alertId comp="app-alert">
+    <article>
+      <header>
+        <h2>{{title}}</h2>
+      </header>
+      <main>
+        <p>{{message}}</p>
+      </main>
+      <footer (click)="onClose()">
+        <span class="material-symbols-outlined">close</span>
+      </footer>
+    </article>
+  </section>
+}
