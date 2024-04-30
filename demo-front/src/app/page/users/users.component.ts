@@ -5,6 +5,7 @@ import { CardFormComponent } from '../../common/card-form/card-form.component';
 import { PickerComponent } from '../../ui/picker/picker.component';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
+import { AccordionComponent } from '../../common/accordion/accordion.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -20,7 +21,7 @@ type UserCardData = {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AlertComponent, CardFormComponent, InputComponent, PickerComponent],
+  imports: [AlertComponent, AccordionComponent, CardFormComponent, InputComponent, PickerComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
