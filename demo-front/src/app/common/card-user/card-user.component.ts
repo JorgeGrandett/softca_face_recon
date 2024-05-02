@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserInterface } from '../../services/users/user.service';
 
 @Component({
   selector: 'app-card-user',
@@ -9,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class CardUserComponent {
 
+  @Input() index: number = 0;
+  @Input() userItem: UserInterface = { id: '', nmid: '', name: '', createAt: '', miniature: '' };
+
+  
 }

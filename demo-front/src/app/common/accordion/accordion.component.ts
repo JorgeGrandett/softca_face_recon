@@ -11,20 +11,23 @@ export class AccordionComponent implements AfterViewInit {
 
   @ViewChild('accordionId') accordionElment!: ElementRef<HTMLDetailsElement>;
   @Input() title: string = 'Accordion Title';
-  @Input() isOpen: boolean = false;
-  @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() open: boolean = false;
+  @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onOpen: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
   ngAfterViewInit(): void {
-    this.toggleAccordion(this.isOpen);
+    this.toggleAccordion(this.open);
   }
 
   onUserAlterStatus() {
     const currentStatus: boolean = this.getStatusOfViewChild();
-    this.isOpen = currentStatus;
-    this.isOpenChange.emit(currentStatus);
-  }
+    this.open = !currentStatus;
+    if (this.open) { this.onOpen.emit(); } else { this.onClose.emit(); }
+    this.openChange.emit(currentStatus);
+  } 
 
   getStatusOfViewChild(): boolean {
     if (this.accordionElment) 

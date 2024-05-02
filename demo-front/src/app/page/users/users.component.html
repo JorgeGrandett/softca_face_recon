@@ -1,6 +1,6 @@
 <app-alert [alertProps]="alertData"></app-alert>
 <section class="accordions">
-  <app-accordion [title]="accodeonData[0].title" [(isOpen)]="accodeonData[0].isOpen">
+  <app-accordion [title]="accodeonData[0].title" [(open)]="accodeonData[0].isOpen">
     <app-card-form
       [title]="userCardTags.title"
       [btnSave]="{ label: userCardTags.btnSave, allowed: userCardData.btnSaveAllowed }"
@@ -12,7 +12,6 @@
         [(value)]="userCardData.user.id"
         [regex]="regex.id"
         [maxLength]="10"
-        [minLength]="7"
         [validations]="validations.id"
         (valueChange)="validateUserCardData()" />
       <ui-input
@@ -32,7 +31,9 @@
         (fileChange)="validateUserCardData()" />
     </app-card-form>
   </app-accordion>
-  <app-accordion [title]="accodeonData[1].title" [(isOpen)]="accodeonData[1].isOpen">
-  
+  <app-accordion [title]="accodeonData[1].title" [(open)]="accodeonData[1].isOpen" (onOpen)="deployUsers()">
+    @for (userItem of UsersList; track $index) {
+      <app-card-user [index]="0" [userItem]="userItem"></app-card-user>
+    }
   </app-accordion>
 </section>

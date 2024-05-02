@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
-import { UserService } from '../../services/users/user.service';
+import { UserInterface, UserService } from '../../services/users/user.service';
 import { CardFormComponent } from '../../common/card-form/card-form.component';
 import { PickerComponent } from '../../ui/picker/picker.component';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
 import { AccordionComponent, AccordionProp } from '../../common/accordion/accordion.component';
+import { CardUserComponent } from '../../common/card-user/card-user.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -21,11 +22,18 @@ type UserCardData = {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AlertComponent, AccordionComponent, CardFormComponent, InputComponent, PickerComponent],
+  imports: [
+    AlertComponent,
+    AccordionComponent,
+    CardFormComponent,
+    InputComponent,
+    PickerComponent,
+    CardUserComponent
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
 
   accodeonData: AccordionProp[] = [
     { title: 'Create new user', isOpen: true },
@@ -65,9 +73,15 @@ export class UsersComponent {
     ]
   }
 
+  UsersList: UserInterface[] = []
+
   constructor(
     private userService: UserService
   ) {}
+
+  ngOnInit(): void {
+    
+  }
 
   validateUserCardData() {
     this.userCardData.btnSaveAllowed =
@@ -107,6 +121,32 @@ export class UsersComponent {
           show: true,
           type: 'error',
           message: AlertConst.MSG_ERR_CREATE_USER
+        }
+      }
+    })
+  }
+
+  deployUsers() {
+    this.userService.getUsers().subscribe({
+      next: (response) => {
+        const listOfResponse = response.data;
+        this.UsersList = listOfResponse.map((item: any): UserInterface => {
+          console.log('User:', item);
+          return {
+            id: item.id,
+            nmid: item.nmid,
+            name: item.name,
+            createAt: item.createAt,
+            miniature: item.imagen
+          }
+        })
+      },
+      error: (error) => {
+        console.error('Failed to get users:', error);
+        this.alertData = {
+          show: true,
+          type: 'error',
+          message: AlertConst.MSG_ERR_GET_USERS
         }
       }
     })

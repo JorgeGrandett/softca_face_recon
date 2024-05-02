@@ -7,4 +7,5 @@ export class AlertConst {
 
   static readonly MSG_ERR_CREATE_USER = 'Failed to create user';
   static readonly MSG_ERR_VALIDATE_USER = 'Failed to update user';
+  static readonly MSG_ERR_GET_USERS = 'Failed to get users';
 }
