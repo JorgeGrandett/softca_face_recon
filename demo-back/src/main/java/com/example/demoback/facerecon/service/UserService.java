@@ -5,7 +5,6 @@ import com.example.demoback.facerecon.dto.Usuario;
 import com.example.demoback.facerecon.dto.UsuarioImagen;
 import com.example.demoback.opencv.dao.OpenCvDao;
 import com.example.demoback.opencv.dto.CreatePerson.CreatePersonReq;
-import com.example.demoback.opencv.dto.GetPersons.GetPersonsRes;
 import com.example.demoback.opencv.dto.Person;
 import com.example.demoback.opencv.dto.UpdatePerson.UpdatePersonReq;
 import org.apache.tomcat.util.codec.binary.Base64;
