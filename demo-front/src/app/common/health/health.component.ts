@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { HealthService } from '../../services/health/health.service';
+import { After } from 'node:v8';
 
 @Component({
   selector: 'app-health',
@@ -8,7 +9,7 @@ import { HealthService } from '../../services/health/health.service';
   templateUrl: './health.component.html',
   styleUrl: './health.component.css'
 })
-export class HealthComponent implements OnInit {
+export class HealthComponent implements AfterViewInit {
 
   isError: boolean = false;
   show: boolean = true;
@@ -17,7 +18,7 @@ export class HealthComponent implements OnInit {
     private healthService: HealthService,
   ) { }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     this.checkPeriodically()
   }
 
@@ -25,10 +26,8 @@ export class HealthComponent implements OnInit {
     
   }
 
-  checkPeriodically(): NodeJS.Timeout {
-    return setInterval(() => {
-      console.log('Checking health...');
-    }, 5000);
+  checkPeriodically(): void {
+    console.log('test')
   }
 
   reload() {
