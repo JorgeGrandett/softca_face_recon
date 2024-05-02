@@ -1,5 +1,5 @@
 <details #accordionId comp="app-accordion">
-  <summary (click)="onUserAlterStatus()">{{title}}</summary>
+  <summary (click)="clickEvent($event)">{{title}}</summary>
   <section class="summary-content">
     <ng-content></ng-content>
   </section>

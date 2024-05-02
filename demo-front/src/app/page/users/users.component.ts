@@ -127,16 +127,17 @@ export class UsersComponent implements OnInit {
   }
 
   deployUsers() {
+    this.accodeonData[0].isOpen = false;
     this.userService.getUsers().subscribe({
       next: (response) => {
         const listOfResponse = response.data;
         this.UsersList = listOfResponse.map((item: any): UserInterface => {
-          console.log('User:', item);
+          //console.log('User:', item);
           return {
             id: item.id,
             nmid: item.nmid,
             name: item.name,
-            createAt: item.createAt,
+            createAt: item.createdAt,
             miniature: item.imagen
           }
         })

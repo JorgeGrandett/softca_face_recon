@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-accordion',
@@ -7,7 +7,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, View
   templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.css'
 })
-export class AccordionComponent implements AfterViewInit {
+export class AccordionComponent implements AfterViewInit, OnChanges {
 
   @ViewChild('accordionId') accordionElment!: ElementRef<HTMLDetailsElement>;
   @Input() title: string = 'Accordion Title';
@@ -19,30 +19,32 @@ export class AccordionComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit(): void {
-    this.toggleAccordion(this.open);
+    this.setAccordionStatus(this.open);
   }
 
-  onUserAlterStatus() {
-    const currentStatus: boolean = this.getStatusOfViewChild();
-    this.open = !currentStatus;
-    if (this.open) { this.onOpen.emit(); } else { this.onClose.emit(); }
-    this.openChange.emit(currentStatus);
-  } 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['open'] && !changes['open'].firstChange) {
+      this.setAccordionStatus(this.open);
+    }
+  }
 
-  getStatusOfViewChild(): boolean {
-    if (this.accordionElment) 
-      return this.accordionElment.nativeElement.hasAttribute('open');
-    return false;
+  clickEvent($event: any) {
+    $event.preventDefault();
+    this.setAccordionStatus(!this.open);
   }
   
-  toggleAccordion(status: boolean) {
+  setAccordionStatus(status: boolean) {
+    this.open = status;
     if (this.accordionElment) {
       if (status) {
         this.accordionElment.nativeElement.setAttribute('open', 'true');
+        this.onOpen.emit();
       } else {
         this.accordionElment.nativeElement.removeAttribute('open');
+        this.onClose.emit();
       }
     }
+    this.openChange.emit(status);
   }
 }
 
