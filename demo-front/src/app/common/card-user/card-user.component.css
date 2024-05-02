@@ -1,3 +1,41 @@
 article[comp="app-card-user"] {
+  box-sizing: content-box;
+  display: grid;
+
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: auto 1fr;
+
+  height: 80px;
+  gap: calc(var(--margin) / 2);
   
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: calc(var(--margin) / 2);
+  border-radius: var(--margin);
 }
+
+  article[comp="app-card-user"] > section.image {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+
+    article[comp="app-card-user"] > section.image > img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+  article[comp="app-card-user"] > section.title {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    align-items: end;
+  }
+
+  article[comp="app-card-user"] > section.content {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+    article[comp="app-card-user"] > section.content > p {
+      font-family: monospace;
+    }

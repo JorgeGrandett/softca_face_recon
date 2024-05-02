@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
 import { UserInterface, UserService } from '../../services/users/user.service';
 import { CardFormComponent } from '../../common/card-form/card-form.component';
@@ -35,7 +35,7 @@ type UserCardData = {
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
 
   accodeonData: AccordionProp[] = [
     { title: 'Create new user', isOpen: true },
@@ -81,10 +81,6 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService
   ) {}
-
-  ngOnInit(): void {
-    
-  }
 
   validateUserCardData() {
     this.userCardData.btnSaveAllowed =
