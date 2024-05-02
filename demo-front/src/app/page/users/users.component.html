@@ -31,9 +31,12 @@
         (fileChange)="validateUserCardData()" />
     </app-card-form>
   </app-accordion>
-  <app-accordion [title]="accodeonData[1].title" [(open)]="accodeonData[1].isOpen" (onOpen)="deployUsers()" (onClose)="UsersList = []">
-    @for (userItem of UsersList; track $index) {
-      <app-card-user [index]="0" [userItem]="userItem"></app-card-user>
+  <app-accordion [title]="accodeonData[1].title" [(open)]="accodeonData[1].isOpen" (onOpen)="deployUsers()" (onClose)="usersList = []">
+    <app-loading [show]="usersListLoading"></app-loading>
+    @if (!usersListLoading) {
+      @for (userItem of usersList; track $index) {
+        <app-card-user [index]="0" [userItem]="userItem"></app-card-user>
+      }
     }
   </app-accordion>
 </section>

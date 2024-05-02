@@ -7,6 +7,7 @@ import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
 import { AccordionComponent, AccordionProp } from '../../common/accordion/accordion.component';
 import { CardUserComponent } from '../../common/card-user/card-user.component';
+import { LoadingComponent } from '../../common/loading/loading.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -23,6 +24,7 @@ type UserCardData = {
   selector: 'app-users',
   standalone: true,
   imports: [
+    LoadingComponent,
     AlertComponent,
     AccordionComponent,
     CardFormComponent,
@@ -73,7 +75,8 @@ export class UsersComponent implements OnInit {
     ]
   }
 
-  UsersList: UserInterface[] = []
+  usersList: UserInterface[] = []
+  usersListLoading: boolean = false;
 
   constructor(
     private userService: UserService
@@ -127,11 +130,12 @@ export class UsersComponent implements OnInit {
   }
 
   deployUsers() {
+    this.usersListLoading = true;
     this.accodeonData[0].isOpen = false;
     this.userService.getUsers().subscribe({
       next: (response) => {
         const listOfResponse = response.data;
-        this.UsersList = listOfResponse.map((item: any): UserInterface => {
+        this.usersList = listOfResponse.map((item: any): UserInterface => {
           //console.log('User:', item);
           return {
             id: item.id,
@@ -149,6 +153,9 @@ export class UsersComponent implements OnInit {
           type: 'error',
           message: AlertConst.MSG_ERR_GET_USERS
         }
+      },
+      complete: () => {
+        this.usersListLoading = false;
       }
     })
   }
