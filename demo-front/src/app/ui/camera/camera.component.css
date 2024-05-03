@@ -5,15 +5,52 @@ section[comp="app-ui-camara"] {
   gap: var(--margin);
 }
 
-  section[comp="app-ui-camara"] > canvas {
+  section[comp="app-ui-camara"] > section.panels {
+    display: flex;
     width: 100%;
-    aspect-ratio: 16/9;
-    background-color: black;
     max-width: 800px;
+    position: relative;
+    overflow: hidden;
     border-radius: var(--margin);
+    pointer-events: none;
   }
 
-  section[comp="app-ui-camara"] > section.btn {
-    width: 100%;
-    max-width: 400px;
+    section[comp="app-ui-camara"] > section.panels > canvas {
+      width: 100%;
+      background-color: black;
+    }
+
+    section[comp="app-ui-camara"] > section.panels > video {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: max-width .5s, top .5s, left .5s;
+    }
+
+    section[comp="app-ui-camara"] > section.panels > video.miniature {
+      max-width: calc(100% / 3);
+      top: 100%;
+      left: 100%;
+      transform: translate(-100%, -100%);
+      border-radius: var(--margin);
+    }
+
+    section[comp="app-ui-camara"] > section.panels > section.banner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: var(--margin);
+      overflow: hidden;
+    }
+
+  section[comp="app-ui-camara"] > section.btns {
+    display: flex;
+    flex-direction: row;
+    gap: var(--margin);
   }
+
+    section[comp="app-ui-camara"] > section.btns > ui-button {
+      min-width: 200px;
+    }

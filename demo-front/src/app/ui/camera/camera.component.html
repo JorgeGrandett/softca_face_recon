@@ -1,6 +1,13 @@
 <section comp="app-ui-camara">
-  <canvas #camvasId></canvas>
-  <section class="btn">
-    <ui-button label="Take Picture" icon="photo_camera" (onClick)="onClickTakePicture()"></ui-button>
+  <section class="panels">
+    <canvas #canvasId></canvas>
+    <video #videoId [disablePictureInPicture]="true"></video>
+    <section class="banner">
+      <app-loading [show]="isLoading"></app-loading>
+    </section>
+  </section>
+  <section class="btns">
+    <ui-button [isActive]="!isLoading" label="Take Picture" icon="photo_camera" (onClick)="onClickTakePicture()"></ui-button>
+    <ui-button [isActive]="isBtnConfirmEnabled" label="Confirm" icon="done" (onClick)="onConfirm()"></ui-button>
   </section>
 </section>
