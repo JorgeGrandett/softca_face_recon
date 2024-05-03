@@ -8,6 +8,7 @@ import { AccordionComponent, AccordionProp } from '../../common/accordion/accord
 import { CardUserComponent } from '../../common/card-user/card-user.component';
 import { LoadingComponent } from '../../common/loading/loading.component';
 import { InputWhitCameraComponent } from '../../common/input-whit-camera/input-whit-camera.component';
+import { CameraComponent } from '../../common/camera/camera.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -30,7 +31,8 @@ type UserCardData = {
     CardFormComponent,
     InputComponent,
     InputWhitCameraComponent,
-    CardUserComponent
+    CardUserComponent,
+    CameraComponent
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'

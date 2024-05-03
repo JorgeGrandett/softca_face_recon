@@ -17,9 +17,26 @@ section[comp="ui-button"] {
     padding: 0 calc(var(--margin) / 2);
   }
 
-    section[comp="ui-button"] > button > span {
-      color: var(--color-secondary);
+    section[comp="ui-button"] > button > section.context {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: calc(var(--margin) / 2);
     }
+
+      section[comp="ui-button"] > button > section.context > p {
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      section[comp="ui-button"] > button > section.context > i {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+      }
 
   section[comp="ui-button"].disable > button {
     opacity: .5;

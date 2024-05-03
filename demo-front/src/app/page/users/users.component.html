@@ -38,7 +38,7 @@
       </app-card-form>
     }
     @else {
-
+      <app-camera></app-camera>
     }
   </app-accordion>
   <app-accordion [title]="accodeonData[1].title" [(open)]="accodeonData[1].isOpen" (onOpen)="deployUsers()" (onClose)="usersList = []">

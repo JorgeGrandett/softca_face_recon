@@ -1,6 +1,8 @@
 <section comp="ui-button" class="{{isActive ? undefined : 'disable'}}">
   <button (click)="onClickHandler()">
-    @if (icon) { <span class="material-symbols-outlined">{{icon}}</span> }
-    {{label}}
+    <section class="context">
+      @if (icon) { <i class="material-symbols-outlined">{{icon}}</i> }
+      @if (label) { <p class="text">{{label}}</p> }
+    </section>
   </button>
 </section>
