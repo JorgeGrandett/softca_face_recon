@@ -2,6 +2,7 @@ package com.example.demoback.opencv.service;
 
 import com.example.demoback.facerecon.dao.UserDao;
 import com.example.demoback.facerecon.dto.Usuario;
+import com.example.demoback.facerecon.dto.UsuarioImagen;
 import com.example.demoback.opencv.dao.OpenCvDao;
 import com.example.demoback.opencv.dto.Search.SearchReq;
 import com.example.demoback.opencv.dto.SearchLiveFace.SearchLiveFacePerson;
@@ -45,7 +46,7 @@ public class OpenCvService {
         return userDao.findByNmid(Long.parseLong(searchLiveFaceRes.getPersons().get(0).getNotes()));
     }
 
-    public Optional<Usuario> search (MultipartFile face) throws IOException, IllegalAccessException, CustomException {
+    public UsuarioImagen search (MultipartFile face) throws IOException, IllegalAccessException, CustomException {
 
         SearchReq searchReq = new SearchReq(
                 null,
@@ -57,6 +58,15 @@ public class OpenCvService {
 
         SearchLiveFacePerson searchLiveFacePerson = openCvDao.search(searchReq);
 
-        return userDao.findByNmid(Long.parseLong(searchLiveFacePerson.getNotes()));
+        Optional<Usuario> auxUser = userDao.findByNmid(Long.parseLong(searchLiveFacePerson.getNotes()));
+
+        return auxUser.map(usuario -> new UsuarioImagen(
+                usuario.getId(),
+                usuario.getName(),
+                usuario.getNmid(),
+                usuario.getOpenCvUuid(),
+                usuario.getCreatedAt(),
+                searchLiveFacePerson.getThumbnails().get(0).getThumbnail()
+        )).orElse(null);
     }
 }

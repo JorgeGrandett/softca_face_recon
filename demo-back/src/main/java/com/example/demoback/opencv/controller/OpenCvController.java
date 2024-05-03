@@ -1,6 +1,7 @@
 package com.example.demoback.opencv.controller;
 
 import com.example.demoback.facerecon.dto.Usuario;
+import com.example.demoback.facerecon.dto.UsuarioImagen;
 import com.example.demoback.opencv.service.OpenCvService;
 import com.example.demoback.util.CustomException;
 import com.example.demoback.util.ResponseMessage;
@@ -39,11 +40,11 @@ public class OpenCvController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<Usuario>> search (@RequestParam("file") MultipartFile face) {
+    public ResponseEntity<ResponseMessage<UsuarioImagen>> search (@RequestParam("file") MultipartFile face) {
         try {
-            Optional<Usuario> response = openCvService.search(face);
-            if(response.isPresent()) {
-                return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario validado con exito", response.get()));
+            UsuarioImagen response = openCvService.search(face);
+            if(response != null) {
+                return ResponseEntity.ok(new ResponseMessage<>(200, "Usuario validado con exito", response));
             }
             return ResponseEntity.ok(new ResponseMessage<>(404, "No se encontro el usuario", null));
         } catch (IOException e) {
