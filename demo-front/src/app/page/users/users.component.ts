@@ -119,7 +119,6 @@ export class UsersComponent {
           type: 'info',
           message: AlertConst.MSG_CREATE_USER
         }
-        this.clearUserCardData();
       },
       error: (error) => {
         console.error('Failed to create user:', error);
@@ -128,9 +127,12 @@ export class UsersComponent {
           type: 'error',
           message: AlertConst.MSG_ERR_CREATE_USER
         }
+        this.formLoading = false;
+        this.clearUserCardData();
       },
       complete: () => {
         this.formLoading = false;
+        this.clearUserCardData();
       }
     })
   }

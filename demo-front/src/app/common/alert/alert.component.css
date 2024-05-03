@@ -11,6 +11,7 @@ section[comp="app-alert"] {
   justify-content: center;
 
   padding: var(--margin);
+  z-index: 1000;
 }
 
   section[comp="app-alert"] > article {

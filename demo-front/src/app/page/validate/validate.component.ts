@@ -64,6 +64,8 @@ export class ValidateComponent {
             type: 'error',
             message: AlertConst.MSG_ERR_VALIDATE_USER
           }
+          this.userData = undefined;
+          this.formLoading = false;
         },
         complete: () => {
           this.formLoading = false;
