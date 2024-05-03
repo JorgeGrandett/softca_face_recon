@@ -1,8 +1,14 @@
 <app-alert [alertProps]="alertData"></app-alert>
-<app-card-form
-  [title]="'Validate Card'"
-  [btnSave]="{ label: 'Validate', allowed: true }"
-  [btnCancel]="{ label: '', allowed: false, hidden: true }"
-  (onSave)="onSaveBtn()">
-  <ui-picker [(file)]="photo" />
-</app-card-form>
+@if (!cameraMode) {
+  <app-card-form
+    [title]="'Validate Card'"
+    [btnSave]="{ label: 'Validate', allowed: isButtonEnable }"
+    [btnCancel]="{ label: '', allowed: false, hidden: true }"
+    (onSave)="onSaveBtn()">
+    <!--<ui-picker [(file)]="photo" />-->
+    <app-input-whit-camera [(file)]="photo" (fileChange)="validateButton()" (onCamara)="alterCamera(true)" />
+  </app-card-form>
+}
+@else {
+  <app-camera [(file)]="photo" (fileChange)="alterCamera(false)"></app-camera>
+}

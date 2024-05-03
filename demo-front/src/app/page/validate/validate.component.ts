@@ -4,11 +4,19 @@ import { PickerComponent } from '../../ui/picker/picker.component';
 import { ValidateService } from '../../services/validate/validate.service';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
+import { InputWhitCameraComponent } from '../../common/input-whit-camera/input-whit-camera.component';
+import { CameraComponent } from '../../common/camera/camera.component';
 
 @Component({
   selector: 'app-validate',
   standalone: true,
-  imports: [AlertComponent, CardFormComponent, PickerComponent],
+  imports: [
+    AlertComponent,
+    CardFormComponent,
+    PickerComponent,
+    InputWhitCameraComponent,
+    CameraComponent
+  ],
   templateUrl: './validate.component.html',
   styleUrl: './validate.component.css'
 })
@@ -21,6 +29,8 @@ export class ValidateComponent {
   }
 
   photo: File | null = null;
+  isButtonEnable: boolean = false;
+  cameraMode: boolean = false;
   
   constructor(
     private validateService: ValidateService
@@ -48,5 +58,14 @@ export class ValidateComponent {
           }
         })
     }
+  }
+
+  validateButton() {
+    this.isButtonEnable = this.photo ? true : false;
+  }
+
+  alterCamera(status: boolean) {
+    this.cameraMode = status;
+    this.validateButton();
   }
 }
