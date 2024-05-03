@@ -1,6 +1,10 @@
 <app-alert [alertProps]="alertData"></app-alert>
 <section class="accordions">
-  <app-accordion [title]="accodeonData[0].title" [(open)]="accodeonData[0].isOpen" (onOpen)="accodeonData[1].isOpen = false">
+  <app-accordion
+    [title]="accodeonData[0].title"
+    [(open)]="accodeonData[0].isOpen"
+    (onOpen)="accodeonData[1].isOpen = false"
+    (onClose)="onCloseCreateUser()">
     @if (!cameraMode) {
       <app-card-form
         [title]="userCardTags.title"
@@ -34,7 +38,7 @@
       </app-card-form>
     }
     @else {
-      
+
     }
   </app-accordion>
   <app-accordion [title]="accodeonData[1].title" [(open)]="accodeonData[1].isOpen" (onOpen)="deployUsers()" (onClose)="usersList = []">

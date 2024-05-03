@@ -127,6 +127,11 @@ export class UsersComponent {
     })
   }
 
+  onCloseCreateUser() {
+    this.cameraMode = false;
+    this.clearUserCardData();
+  }
+
   deployUsers() {
     this.usersListLoading = true;
     this.accodeonData[0].isOpen = false;
