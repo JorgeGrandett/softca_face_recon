@@ -4,5 +4,5 @@
       <ui-button label="Back" icon="chevron_left" (onClick)="onClickBack()" />
     </section>
   </section>
-  <ui-camera></ui-camera>
+  <ui-camera (onTakePicture)="onTakePicture($event)"></ui-camera>
 </section>

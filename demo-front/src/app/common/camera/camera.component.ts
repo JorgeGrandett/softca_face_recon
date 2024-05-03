@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CameraComponent as CameraUiComponent } from '../../ui/camera/camera.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 
@@ -14,8 +14,16 @@ import { ButtonComponent } from '../../ui/button/button.component';
 })
 export class CameraComponent {
 
+  @Input() file: File | null = null;
+  @Output() fileChange = new EventEmitter<File | null>();
+
   onClickBack() {
-    console.log('Back button clicked');
+    this.file = null;
+    this.fileChange.emit(this.file);
   }
 
+  onTakePicture(file: File) {
+    this.file = file;
+    this.fileChange.emit(this.file);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 type ValidationProps = {
@@ -13,7 +13,7 @@ type ValidationProps = {
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
 })
-export class InputComponent implements OnChanges {
+export class InputComponent implements OnChanges, AfterViewInit {
 
   @ViewChild('inputId') inputElement!: ElementRef<HTMLElement>;
   @Input() label: string = 'Title';
@@ -34,6 +34,10 @@ export class InputComponent implements OnChanges {
     const { value } = changes;
     if (value && value.currentValue.length == 0 && this.inputElement && !this.hasFocus)
       this.inputElement.nativeElement.classList.remove('is-active');
+  }
+
+  ngAfterViewInit(): void {
+    if (this.value.length > 0) this.inputElement.nativeElement.classList.add('is-active');
   }
 
   onValueChange() {

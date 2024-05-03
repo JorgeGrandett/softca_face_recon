@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ui-picker',
@@ -7,7 +7,7 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCh
   templateUrl: './picker.component.html',
   styleUrl: './picker.component.css'
 })
-export class PickerComponent implements OnChanges {
+export class PickerComponent implements OnChanges, AfterViewInit {
 
   @ViewChild('inputId') inputElement!: ElementRef<HTMLElement>;
   @Input() label: string = 'Image Picker';
@@ -16,10 +16,26 @@ export class PickerComponent implements OnChanges {
   fileName: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log('PickerComponent: onChanges');
-    const { file } = changes;
-    if (!file.currentValue && this.inputElement) {
-      this.onClearFile();
+    //console.log('PickerComponent: ngOnChanges', changes);
+    if (changes['file'] && !changes['file'].firstChange) {
+      if (changes['file'].currentValue) {
+        this.fileName = changes['file'].currentValue.name;
+        this.inputElement.nativeElement.classList.add('is-active');
+      } else {
+        this.fileName = '';
+        this.inputElement.nativeElement.classList.remove('is-active');
+      }
+    }
+  }
+
+  ngAfterViewInit(): void {
+    //console.log('PickerComponent: ngAfterViewInit');
+    if (this.file) {
+      this.fileName = this.file.name;
+      this.inputElement.nativeElement.classList.add('is-active');
+    } else {
+      this.fileName = '';
+      this.inputElement.nativeElement.classList.remove('is-active');
     }
   }
 
@@ -34,18 +50,6 @@ export class PickerComponent implements OnChanges {
       this.fileName = '';
       this.inputElement.nativeElement.classList.remove('is-active');
       this.fileChange.emit(null);
-    }
-  }
-
-  onClearFile() {
-    //console.log('PickerComponent: onClearFile');
-    if (!this.file) {
-      this.file = null;
-      this.fileName = '';
-      this.inputElement.nativeElement.classList.remove('is-active');
-      const inputsOnElement = this.inputElement.nativeElement.getElementsByTagName('input');
-      if (inputsOnElement.length > 0) inputsOnElement[0].value = '';
-      this.fileChange.emit(this.file);
     }
   }
 }

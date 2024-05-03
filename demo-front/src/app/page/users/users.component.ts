@@ -165,7 +165,8 @@ export class UsersComponent {
     })
   }
 
-  openCamera() {
-    this.cameraMode = true;
+  alterCamera(status: boolean) {
+    this.cameraMode = status;
+    this.validateUserCardData();
   }
 }
