@@ -42,7 +42,8 @@ export class ValidateComponent {
   ) { }
 
   onSaveBtn() {
-    this.validateService.validate({ photo: this.photo! })
+    if (!this.photo) return;
+    this.validateService.validate({ photo: this.photo })
       .subscribe({
         next: (response: any) => {
           console.log('Response:', response);
