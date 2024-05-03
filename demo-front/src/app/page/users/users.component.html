@@ -37,7 +37,7 @@
       @if (usersList.length > 0) {
         <section #usersGrupId class="users-cards-grup">
           @for (userItem of usersList; track $index) {
-            <app-card-user [index]="0" [userItem]="userItem"></app-card-user>
+            <app-card-user [userItem]="userItem"></app-card-user>
           }
         </section>
       }

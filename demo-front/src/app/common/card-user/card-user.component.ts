@@ -10,8 +10,6 @@ import { UserInterface } from '../../services/users/user.service';
 })
 export class CardUserComponent {
 
-  @Input() index: number = 0;
   @Input() userItem: UserInterface = { id: '', nmid: '', name: '', createAt: '', miniature: '' };
 
-  
 }
