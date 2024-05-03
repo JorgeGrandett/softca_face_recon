@@ -3,7 +3,7 @@ section[comp="ui-button"] {
   width: 100%;
 }
 
-  section[comp="ui-button"] button {
+  section[comp="ui-button"] > button {
     height: 100%;
     width: 100%;
     background-color: transparent;
@@ -14,9 +14,14 @@ section[comp="ui-button"] {
     font-weight: bold;
     background-color: rgba(0, 0, 20, .5);
     cursor: pointer;
+    padding: 0 calc(var(--margin) / 2);
   }
 
-  section[comp="ui-button"].disable button {
+    section[comp="ui-button"] > button > span {
+      color: var(--color-secondary);
+    }
+
+  section[comp="ui-button"].disable > button {
     opacity: .5;
     pointer-events: none;
   }

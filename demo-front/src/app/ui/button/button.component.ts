@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonComponent {
 
   @Input() label: string = 'Button Tag';
+  @Input() icon?: string = '';
   @Input() isActive?: boolean = true;
   @Output() onClick: EventEmitter<undefined> = new EventEmitter();
 

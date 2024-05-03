@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { InputComponent } from '../../ui/input/input.component';
 import { UserInterface, UserService } from '../../services/users/user.service';
 import { CardFormComponent } from '../../common/card-form/card-form.component';
-import { PickerComponent } from '../../ui/picker/picker.component';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
 import { AccordionComponent, AccordionProp } from '../../common/accordion/accordion.component';
 import { CardUserComponent } from '../../common/card-user/card-user.component';
 import { LoadingComponent } from '../../common/loading/loading.component';
+import { InputWhitCameraComponent } from '../../common/input-whit-camera/input-whit-camera.component';
 
 type UserCardData = {
   btnSaveAllowed: boolean;
@@ -29,7 +29,7 @@ type UserCardData = {
     AccordionComponent,
     CardFormComponent,
     InputComponent,
-    PickerComponent,
+    InputWhitCameraComponent,
     CardUserComponent
   ],
   templateUrl: './users.component.html',
@@ -77,6 +77,8 @@ export class UsersComponent {
 
   usersList: UserInterface[] = []
   usersListLoading: boolean = false;
+
+  cameraMode: boolean = false;
 
   constructor(
     private userService: UserService
@@ -154,5 +156,9 @@ export class UsersComponent {
         this.usersListLoading = false;
       }
     })
+  }
+
+  openCamera() {
+    this.cameraMode = true;
   }
 }

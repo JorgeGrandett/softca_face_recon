@@ -1,0 +1,8 @@
+section[comp="app-input-whit-camera"] {
+  display: flex;
+  gap: calc(var(--margin) / 2);
+}
+
+  section[comp="app-input-whit-camera"] > ui-picker {
+    width: 100%;
+  }
