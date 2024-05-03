@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CardFormComponent } from '../../common/card-form/card-form.component';
-import { PickerComponent } from '../../ui/picker/picker.component';
 import { ValidateService } from '../../services/validate/validate.service';
 import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
@@ -8,6 +7,7 @@ import { InputWhitCameraComponent } from '../../common/input-whit-camera/input-w
 import { CameraComponent } from '../../common/camera/camera.component';
 import { UserInterface } from '../../services/users/user.service';
 import { CardUserComponent } from '../../common/card-user/card-user.component';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-validate',
@@ -15,10 +15,10 @@ import { CardUserComponent } from '../../common/card-user/card-user.component';
   imports: [
     AlertComponent,
     CardFormComponent,
-    PickerComponent,
     InputWhitCameraComponent,
     CameraComponent,
-    CardUserComponent
+    CardUserComponent,
+    ButtonComponent
   ],
   templateUrl: './validate.component.html',
   styleUrl: './validate.component.css'
@@ -74,4 +74,10 @@ export class ValidateComponent {
     this.cameraMode = status;
     this.validateButton();
   }
+
+  onBackBtn() {
+    this.userData = undefined;
+    this.photo = null;
+  }
+
 }

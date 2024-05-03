@@ -1,0 +1,10 @@
+.user-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin);
+}
+
+.move-right {
+  display: flex;
+  justify-content: flex-end;
+}

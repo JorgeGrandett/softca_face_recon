@@ -15,8 +15,10 @@
   }
 }
 @else {
-  <section class="">
-    
+  <section class="user-view">
+    <section class="move-right">
+      <ui-button label="Back" icon="chevron_left" (onClick)="onBackBtn()"></ui-button>
+    </section>
+    <app-card-user [userItem]="userData" />
   </section>
-  <app-card-user [userItem]="userData" />
 }
