@@ -6,6 +6,8 @@ import { AlertComponent, AlertProps } from '../../common/alert/alert.component';
 import { AlertConst } from '../../utils/alerts.const';
 import { InputWhitCameraComponent } from '../../common/input-whit-camera/input-whit-camera.component';
 import { CameraComponent } from '../../common/camera/camera.component';
+import { UserInterface } from '../../services/users/user.service';
+import { CardUserComponent } from '../../common/card-user/card-user.component';
 
 @Component({
   selector: 'app-validate',
@@ -15,7 +17,8 @@ import { CameraComponent } from '../../common/camera/camera.component';
     CardFormComponent,
     PickerComponent,
     InputWhitCameraComponent,
-    CameraComponent
+    CameraComponent,
+    CardUserComponent
   ],
   templateUrl: './validate.component.html',
   styleUrl: './validate.component.css'
@@ -28,6 +31,8 @@ export class ValidateComponent {
     message: ''
   }
 
+  userData: UserInterface | undefined = undefined
+
   photo: File | null = null;
   isButtonEnable: boolean = false;
   cameraMode: boolean = false;
@@ -37,27 +42,28 @@ export class ValidateComponent {
   ) { }
 
   onSaveBtn() {
-    if (this.photo) {
-      this.validateService.validate({ photo: this.photo })
-        .subscribe({
-          next: (response) => {
-            console.log('Response:', response);
-            this.alertData = {
-              show: true,
-              type: 'info',
-              message: AlertConst.MSG_VALIDATE_USER
-            }
-          },
-          error: (error) => {
-            console.error('Error:', error);
-            this.alertData = {
-              show: true,
-              type: 'error',
-              message: AlertConst.MSG_ERR_VALIDATE_USER
-            }
+    if (!this.photo) return;
+    this.validateService.validate({ photo: this.photo })
+      .subscribe({
+        next: (response: any) => {
+          console.log('Response:', response);
+          let userData = response.data;
+          this.userData = {
+            id: userData.id,
+            nmid: userData.nmid,
+            name: userData.name,
+            createAt: userData.createdAt
           }
-        })
-    }
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          this.alertData = {
+            show: true,
+            type: 'error',
+            message: AlertConst.MSG_ERR_VALIDATE_USER
+          }
+        }
+      })
   }
 
   validateButton() {
