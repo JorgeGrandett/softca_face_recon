@@ -46,13 +46,13 @@ export class ValidateComponent {
     this.validateService.validate({ photo: this.photo })
       .subscribe({
         next: (response: any) => {
-          console.log('Response:', response);
           let userData = response.data;
           this.userData = {
             id: userData.id,
             nmid: userData.nmid,
             name: userData.name,
-            createAt: userData.createdAt
+            createAt: userData.createdAt,
+            miniature: userData.imagen
           }
         },
         error: (error) => {

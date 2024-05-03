@@ -7,7 +7,7 @@
       [btnCancel]="{ label: '', allowed: false, hidden: true }"
       (onSave)="onSaveBtn()">
       <!--<ui-picker [(file)]="photo" />-->
-      <app-input-whit-camera [(file)]="photo" (onCamara)="alterCamera(true)" />
+      <app-input-whit-camera [(file)]="photo" (onCamara)="alterCamera(true)" (fileChange)="validateButton()" />
     </app-card-form>
   }
   @else {
@@ -15,5 +15,8 @@
   }
 }
 @else {
+  <section class="">
+    
+  </section>
   <app-card-user [userItem]="userData" />
 }
