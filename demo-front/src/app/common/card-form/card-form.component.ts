@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-card-form',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [
+    ButtonComponent,
+    LoadingComponent
+  ],
   templateUrl: './card-form.component.html',
   styleUrl: './card-form.component.css'
 })
@@ -20,6 +24,7 @@ export class CardFormComponent {
     allowed: false,
     hidden: false
   };
+  @Input() loading: boolean = false;
   @Output() onSave: EventEmitter<void> = new EventEmitter<void>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 

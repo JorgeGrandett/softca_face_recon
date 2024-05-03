@@ -25,4 +25,9 @@
         (onClick)="save()" />
     </footer>
   }
+  @if (loading) {
+    <section class="form-loading-glass"></section>
+    <section class="form-loading"><app-loading [show]="true" /></section>
+  }
+  
 </article>

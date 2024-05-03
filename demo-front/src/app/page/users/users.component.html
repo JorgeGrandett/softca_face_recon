@@ -7,6 +7,7 @@
     (onClose)="onCloseCreateUser()">
     @if (!cameraMode) {
       <app-card-form
+        [loading]="formLoading"
         [title]="userCardTags.title"
         [btnSave]="{ label: userCardTags.btnSave, allowed: userCardData.btnSaveAllowed }"
         [btnCancel]="{ label: userCardTags.btnCancel, allowed: userCardData.btnCancelAllowed}"

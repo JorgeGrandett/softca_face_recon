@@ -82,6 +82,8 @@ export class UsersComponent {
 
   cameraMode: boolean = false;
 
+  formLoading: boolean = false;
+
   constructor(
     private userService: UserService
   ) {}
@@ -104,6 +106,7 @@ export class UsersComponent {
   }
 
   saveUserCardData() {
+    this.formLoading = true;
     this.userService.createUser({
       nmid: this.userCardData.user.id,
       name: this.userCardData.user.firstName + ' ' + this.userCardData.user.lastName,
@@ -125,6 +128,9 @@ export class UsersComponent {
           type: 'error',
           message: AlertConst.MSG_ERR_CREATE_USER
         }
+      },
+      complete: () => {
+        this.formLoading = false;
       }
     })
   }

@@ -2,6 +2,7 @@
 @if (!userData) {
   @if (!cameraMode) {
     <app-card-form
+      [loading]="formLoading"
       [title]="'Validate Card'"
       [btnSave]="{ label: 'Validate', allowed: isButtonEnable }"
       [btnCancel]="{ label: '', allowed: false, hidden: true }"

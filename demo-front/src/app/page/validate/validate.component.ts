@@ -36,6 +36,7 @@ export class ValidateComponent {
   photo: File | null = null;
   isButtonEnable: boolean = false;
   cameraMode: boolean = false;
+  formLoading: boolean = false;
   
   constructor(
     private validateService: ValidateService
@@ -43,6 +44,7 @@ export class ValidateComponent {
 
   onSaveBtn() {
     if (!this.photo) return;
+    this.formLoading = true;
     this.validateService.validate({ photo: this.photo })
       .subscribe({
         next: (response: any) => {
@@ -62,6 +64,9 @@ export class ValidateComponent {
             type: 'error',
             message: AlertConst.MSG_ERR_VALIDATE_USER
           }
+        },
+        complete: () => {
+          this.formLoading = false;
         }
       })
   }
@@ -78,6 +83,8 @@ export class ValidateComponent {
   onBackBtn() {
     this.userData = undefined;
     this.photo = null;
+
+    this.validateButton();
   }
 
 }
